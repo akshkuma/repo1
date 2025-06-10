@@ -12,12 +12,12 @@ jobs:
     
     steps:
       - name: Checkout Repo1
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       - name: Checkout Repo2
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          repository: "your-username/repo2"
+          repository: "akshkuma/repo2"
           token: ${{ secrets.REPO2_ACCESS_TOKEN }}
 
       - name: Make Changes in Repo2
@@ -38,7 +38,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.REPO2_ACCESS_TOKEN }}
-          repository: "your-username/repo2"
+          repository: "akshkuma/repo2"
           title: "Automated PR from repo1"
           body: "This PR contains changes made by repo1."
           branch: "repo1-update-branch"
