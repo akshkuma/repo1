@@ -17,28 +17,26 @@ jobs:
           sudo apt update
           sudo apt install gh -y
 
-      - name: Authenticate GitHub CLI
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh auth login --with-token <<< "$GITHUB_TOKEN"
-
       - name: Clone target repository
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          gh repo clone akshkuma/repo2
+          git clone https://oauth2:${GH_TOKEN}@github.com/akshkuma/repo2.git
           cd repo2
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
       - name: Create new file
         run: |
+          cd repo2
           echo "Hello, world!" > newfile.txt
           git add newfile.txt
           git commit -m "Add new file via GitHub Actions"
-          git push origin main
+          git push https://oauth2:${{ secrets.GH_TOKEN }}@github.com/akshkuma/repo2.git main
 
       - name: Create pull request
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          gh pr create --title "Automated PR: Add new file" --body "This PR adds a new file." --base main --head main --repo akshkuma/repo2
+          cd repo2
+          gh pr create --title "Automated PR: Add new file" --body "This PR adds a new file." --base main --head main
