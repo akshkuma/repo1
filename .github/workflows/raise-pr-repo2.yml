@@ -21,19 +21,23 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
+      - name: Generate dynamic branch name
+        id: create_branch
+        run: echo "BRANCH_NAME=new-feature-$(date +%s)" >> $GITHUB_ENV
+        
       - name: Create new branch and add file
         run: |
           cd repo2
-          git checkout -b new-feature-branch
+          git checkout -b $BRANCH_NAME
           touch newfile.txt
           echo "Hello, world! $(date)"  >> newfile.txt
           git add newfile.txt
           git commit -m "Add new file via GitHub Actions"
-          git push https://oauth2:${{ secrets.REPO2_ACCESS_TOKEN }}@github.com/akshkuma/repo2.git new-feature-branch
+          git push https://oauth2:${GH_TOKEN}@github.com/akshkuma/repo2.git $BRANCH_NAME
 
       - name: Create pull request
         env:
           GH_TOKEN: ${{ secrets.REPO2_ACCESS_TOKEN }}
         run: |
           cd repo2
-          gh pr create --title "Automated PR: Add new file" --body "This PR adds a new file." --base main --head new-feature-branch
+          gh pr create --title "Automated PR: Add new file" --body "This PR adds a new file." --base main --head $BRANCH_NAME
