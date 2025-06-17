@@ -12,11 +12,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-     # - name: Install GitHub CLI
-      #  run: |
-       #   sudo apt update
-        #  sudo apt install gh -y
-
       - name: Clone target repository
         env:
           GH_TOKEN: ${{ secrets.REPO2_ACCESS_TOKEN }}
@@ -42,4 +37,3 @@ jobs:
         run: |
           cd repo2
           gh pr create --title "Automated PR: Add new file" --body "This PR adds a new file." --base main --head new-feature-branch
-
