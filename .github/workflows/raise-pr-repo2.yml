@@ -30,7 +30,7 @@ jobs:
           cd repo2
           git checkout -b $BRANCH_NAME
           touch newfile.txt
-          echo "Hello, world! $(date)"  >> newfile.txt
+          echo "Hello, world! Updated text for testing $(date)"  >> newfile.txt
           git add newfile.txt
           git commit -m "Add new file via GitHub Actions"
           git push https://oauth2:${{ secrets.REPO2_ACCESS_TOKEN }}@github.com/akshkuma/repo2.git $BRANCH_NAME
