@@ -19,7 +19,7 @@ jobs:
 
       - name: Clone target repository
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.REPO2_ACCESS_TOKEN }}
         run: |
           git clone https://oauth2:${GH_TOKEN}@github.com/akshkuma/repo2.git
           cd repo2
@@ -36,7 +36,7 @@ jobs:
 
       - name: Create pull request
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.REPO2_ACCESS_TOKEN }}
         run: |
           cd repo2
           gh pr create --title "Automated PR: Add new file" --body "This PR adds a new file." --base main --head main
