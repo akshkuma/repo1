@@ -32,7 +32,7 @@ jobs:
           echo "Hello, world!" > newfile.txt
           git add newfile.txt
           git commit -m "Add new file via GitHub Actions"
-          git push https://oauth2:${{ secrets.GH_TOKEN }}@github.com/akshkuma/repo2.git main
+          git push https://oauth2:${{ secrets.REPO2_ACCESS_TOKEN }}@github.com/akshkuma/repo2.git main
 
       - name: Create pull request
         env:
