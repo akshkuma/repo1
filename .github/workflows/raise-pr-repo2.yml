@@ -26,17 +26,19 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
-      - name: Create new file
+
+      - name: Create new branch and add file
         run: |
           cd repo2
+          git checkout -b new-feature-branch
           echo "Hello, world!" > newfile.txt
           git add newfile.txt
           git commit -m "Add new file via GitHub Actions"
-          git push https://oauth2:${{ secrets.REPO2_ACCESS_TOKEN }}@github.com/akshkuma/repo2.git main
+          git push https://oauth2:${{ secrets.REPO2_ACCESS_TOKEN }}@github.com/akshkuma/repo2.git new-feature-branch
 
       - name: Create pull request
         env:
           GH_TOKEN: ${{ secrets.REPO2_ACCESS_TOKEN }}
         run: |
           cd repo2
-          gh pr create --title "Automated PR: Add new file" --body "This PR adds a new file." --base main --head main
+          gh pr create --title "Automated PR: Add new file" --body "This PR adds a new file." --base main --head new-feature-branch
