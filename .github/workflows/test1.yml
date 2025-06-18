@@ -16,16 +16,16 @@ jobs:
           unset GH_TOKEN
           echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
-      - name: Clone Private Repository using HTTPS
+     # - name: Clone Private Repository using HTTPS
+      #  env:
+       #   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #run: |
+         # git clone https://oauth2:${GH_TOKEN}@github.com/akshkuma/repo2.git
+
+      
+      - name: Clone Private Repository aisw-hud-data
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git clone https://oauth2:${GH_TOKEN}@github.com/akshkuma/repo2.git
-
-      
-          # - name: Clone Private Repository aisw-hud-data
-          # env:
-          #GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          #run: |
-          # gh repo clone ROCm/aisw-hud-data
-          # ls -l aisw-hud-data
+           gh repo clone akshkuma/repo2
+           ls -l repo2
