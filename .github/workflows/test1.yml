@@ -10,8 +10,8 @@ jobs:
         uses: actions/checkout@v4
 
       #- name: Authenticate GitHub CLI
-       # env:
-        #  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #env:
+         # GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         #run: |
          # unset GH_TOKEN
           #echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
@@ -23,9 +23,9 @@ jobs:
          # git clone https://oauth2:${GH_TOKEN}@github.com/akshkuma/repo2.git
 
       
-      - name: Clone Private Repository aisw-hud-data
-        #env:
-         # GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Clone Private Repository
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
            gh repo clone akshkuma/repo2
            ls -l repo2
