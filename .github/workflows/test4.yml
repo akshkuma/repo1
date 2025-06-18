@@ -19,6 +19,6 @@ jobs:
       - name: Clone Private Repository aisw-hud-data
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          run: |
-           gh repo clone ROCm/aisw-hud-data
-           ls -l aisw-hud-data
+        run: |
+          gh repo clone ROCm/aisw-hud-data
+          ls -l aisw-hud-data
