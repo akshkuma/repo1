@@ -20,5 +20,5 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           run: |
-           gh repo clone ROCm/aisw-hud-data.git
+           gh repo clone ROCm/aisw-hud-data
            ls -l aisw-hud-data
