@@ -1,0 +1,25 @@
+name: test4 with gh cli
+
+on: workflow_dispatch
+
+jobs:
+  clone-parent-target-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout parent repository aisw-hud
+        uses: actions/checkout@v4
+
+      - name: Authenticate GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          unset GH_TOKEN
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+          
+      - name: Clone Private Repository aisw-hud-data
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run: |
+           #gh repo clone ROCm/aisw-hud-data
+           gh repo clone https://github.com/ROCm/aisw-hud-data.git
+           ls -l aisw-hud-data
