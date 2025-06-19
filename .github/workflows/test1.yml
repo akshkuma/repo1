@@ -27,5 +27,5 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-           gh repo clone akshkuma/private_repo
+           gh repo clone akshkuma/repo2
            ls -l repo2
