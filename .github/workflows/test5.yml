@@ -11,10 +11,11 @@ jobs:
 
       - name: Set up SSH and clone private repo
         env:
-          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_KEY: ${{ secrets.REPO2_SSH_KEY }}
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           git clone git@github.com:akshkuma/private_repo.git
+
