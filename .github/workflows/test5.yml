@@ -1,0 +1,20 @@
+name: clone private repo with ssh 
+
+on: workflow_dispatch
+
+jobs:
+  clone-parent-target-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout parent repository aisw-hud
+        uses: actions/checkout@v4
+
+      - name: Set up SSH and clone private repo
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          git clone git@github.com:akshkuma/private_repo.git
