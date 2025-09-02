@@ -14,9 +14,9 @@ jobs:
 
     steps:
       - name: Checkout aisw-hud repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          repository: your-org/aisw-hud
+          repository: ROCm/aisw-hud
           path: aisw-hud
 
       - name: Fetch and checkout PR
@@ -36,9 +36,9 @@ jobs:
           -exec cp {} aisw-hud-data/metrics/pytorch/inductor/test-reports/MI350/17388527450/ \;
 
       - name: Checkout aisw-hud-data repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          repository: your-org/aisw-hud-data
+          repository: ROCm/aisw-hud-data
           path: aisw-hud-data
           token: ${{ secrets.GITHUB_TOKEN }}
 
