@@ -1,0 +1,53 @@
+name: Copy PR Files to aisw-hud-data
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Pull Request Number'
+        required: true
+        type: string
+
+jobs:
+  copy-files:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout aisw-hud repo
+        uses: actions/checkout@v3
+        with:
+          repository: your-org/aisw-hud
+          path: aisw-hud
+
+      - name: Fetch and checkout PR
+        run: |
+          cd aisw-hud
+          git fetch origin pull/${{ github.event.inputs.pr_number }}/head:pr-${{ github.event.inputs.pr_number }}
+          git checkout pr-${{ github.event.inputs.pr_number }}
+          git diff --name-only origin/main...pr-${{ github.event.inputs.pr_number }}
+
+      - name: Create destination directory
+        run: |
+          mkdir -p aisw-hud-data/metrics/pytorch/inductor/test-reports/MI350/17388527450/
+
+      - name: Copy files from PR to aisw-hud-data
+        run: |
+          find aisw-hud/metrics/pytorch/inductor/test-reports/MI350/ \( -name '*.csv' -o -name '*.json' \) \
+          -exec cp {} aisw-hud-data/metrics/pytorch/inductor/test-reports/MI350/17388527450/ \;
+
+      - name: Checkout aisw-hud-data repo
+        uses: actions/checkout@v3
+        with:
+          repository: your-org/aisw-hud-data
+          path: aisw-hud-data
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and push to aisw-hud-data
+        run: |
+          cd aisw-hud-data
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git checkout -b akshay-${{ github.event.inputs.pr_number }}
+          git add .
+          git commit -m "Copied files from PR #${{ github.event.inputs.pr_number }} aisw-hud to aisw-hud-data"
+          git push origin akshay-${{ github.event.inputs.pr_number }}
