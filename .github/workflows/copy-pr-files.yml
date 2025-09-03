@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       branchSubstring:
-        description: 'Substring to search for in the PR branch name'
+        description: 'Enter the run_id for which you want to copy the files'
         required: true
         type: string
 
